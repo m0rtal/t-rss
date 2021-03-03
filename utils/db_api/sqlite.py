@@ -48,12 +48,6 @@ class Database:
         sql_request += ";"
         return sql_request, tuple(params.values())
 
-    # # --------------- PRAGMA - настройка свойств БД
-    # # включим FK
-    # def pragma(self):
-    #     sql_query = "PRAGMA foreign_keys = ON;"
-    #     self.execute(sql_query, commit=True)
-    #
     # --------------- работа с пользователями
     # таблица пользователей
     def create_table_users(self):
@@ -207,7 +201,7 @@ class Database:
 
     # добавить описание ссылке
     def add_description(self, link: str, description: str):
-        sql_query = f"INSERT INTO descriptions (link_id, description) VALUES ((SELECT id FROM links WHERE link=?),?);"
+        sql_query = "INSERT INTO descriptions (link_id, description) VALUES ((SELECT id FROM links WHERE link=?),?);"
         self.execute(sql_query, params=(link, description), commit=True)
 
     def get_description(self, link: str):
